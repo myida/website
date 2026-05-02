@@ -1,0 +1,19 @@
+{
+  "name": "ida-website",
+  "version": "0.1.0",
+  "private": false,
+  "description": "Marketing website for IDA — open source identity for the AI age.",
+  "license": "Apache-2.0",
+  "homepage": "https://adid.dev",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/myida/website.git"
+  },
+  "bugs": {
+    "url": "https://github.com/myida/website/issues"
+  },
+  "scripts": {
+    "dev": "npx --yes serve@latest -l 3000 .",
+    "start": "npx --yes serve@latest -l 3000 ."
+  }
+}

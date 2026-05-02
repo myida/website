@@ -1,0 +1,1166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IDA — Open Source Identity for the AI Age</title>
+<link rel="icon" type="image/svg+xml" href="/logo.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Space+Grotesk:wght@700&family=Syne:wght@400;500;600;700;800&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #0d0d0d;
+    --paper: #f5f2eb;
+    --cream: #ede9df;
+    --accent: #c8401b;
+    --accent-muted: #e8c4bb;
+    --mid: #6b6560;
+    --rule: #d4cfc6;
+    --green: #2d6a4f;
+    --green-bg: #eaf3ee;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'Syne', sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  /* ─── HEADER BANNER ─── */
+  .top-banner {
+    background: var(--ink);
+    color: var(--paper);
+    text-align: center;
+    padding: 10px 24px;
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    font-weight: 400;
+  }
+  .top-banner a { color: var(--accent-muted); text-decoration: none; border-bottom: 1px solid var(--accent-muted); }
+
+  /* ─── HERO ─── */
+  .hero {
+    min-height: 92vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-left {
+    background: var(--ink);
+    color: var(--paper);
+    padding: 72px 64px 72px 72px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: relative;
+  }
+
+  .hero-right {
+    background: var(--cream);
+    padding: 72px 72px 72px 64px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: relative;
+  }
+
+  .logo-mark {
+    font-family: 'DM Mono', monospace;
+    font-size: 13px;
+    letter-spacing: 0.12em;
+    color: var(--accent-muted);
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+  .logo-mark .ida-logo { color: var(--paper); height: 26px; width: auto; display: block; }
+  .logo-mark .logo-tagline { white-space: nowrap; }
+
+  .hero-headline {
+    font-family: 'Instrument Serif', serif;
+    font-size: clamp(52px, 5.5vw, 80px);
+    line-height: 1.0;
+    letter-spacing: -0.02em;
+    color: var(--paper);
+    margin: 40px 0 32px;
+  }
+  .hero-headline em {
+    font-style: italic;
+    color: #e8845a;
+  }
+
+  .hero-sub {
+    font-size: 16px;
+    line-height: 1.7;
+    color: #b0aa9e;
+    max-width: 380px;
+  }
+
+  .hero-ctas {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-top: 48px;
+  }
+
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--accent);
+    color: white;
+    font-family: 'Syne', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 14px 28px;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+  .btn-primary:hover { background: #a83416; }
+
+  .btn-secondary {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: transparent;
+    color: var(--paper);
+    font-family: 'Syne', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 14px 28px;
+    text-decoration: none;
+    border: 1px solid #444;
+    cursor: pointer;
+    transition: border-color 0.2s, color 0.2s;
+  }
+  .btn-secondary:hover { border-color: var(--paper); }
+
+  .hero-right-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--mid);
+  }
+
+  .hero-pull {
+    font-family: 'Instrument Serif', serif;
+    font-size: clamp(28px, 3vw, 42px);
+    line-height: 1.25;
+    color: var(--ink);
+    margin: 24px 0 32px;
+    letter-spacing: -0.01em;
+  }
+  .hero-pull em { font-style: italic; color: var(--accent); }
+
+  .stat-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    background: var(--rule);
+    border: 1px solid var(--rule);
+    margin-top: 48px;
+  }
+
+  .stat-cell {
+    background: var(--cream);
+    padding: 20px 22px;
+  }
+  .stat-num {
+    font-family: 'Instrument Serif', serif;
+    font-size: 36px;
+    color: var(--ink);
+    line-height: 1;
+    display: block;
+  }
+  .stat-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--mid);
+    letter-spacing: 0.08em;
+    margin-top: 4px;
+    display: block;
+  }
+
+  .hero-divider {
+    position: absolute;
+    top: 0; bottom: 0;
+    left: 50%;
+    width: 1px;
+    background: #2a2a2a;
+  }
+
+  /* ─── SECTION WRAPPER ─── */
+  .section {
+    max-width: 1160px;
+    margin: 0 auto;
+    padding: 100px 40px;
+  }
+
+  .section-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--mid);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 32px;
+  }
+  .section-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--rule);
+    max-width: 120px;
+  }
+
+  .section-title {
+    font-family: 'Instrument Serif', serif;
+    font-size: clamp(38px, 4vw, 58px);
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    max-width: 760px;
+    margin-bottom: 24px;
+  }
+  .section-title em { font-style: italic; color: var(--accent); }
+
+  .section-body {
+    font-size: 17px;
+    line-height: 1.75;
+    color: #444;
+    max-width: 680px;
+  }
+
+  /* ─── PROBLEM STRIP ─── */
+  .problem-strip {
+    background: var(--ink);
+    color: var(--paper);
+    padding: 80px 0;
+    position: relative;
+    overflow: hidden;
+  }
+  .problem-strip::before {
+    content: '"';
+    font-family: 'Instrument Serif', serif;
+    font-size: 400px;
+    color: #1a1a1a;
+    position: absolute;
+    top: -100px; left: 40px;
+    line-height: 1;
+    pointer-events: none;
+  }
+
+  .problem-inner {
+    max-width: 1160px;
+    margin: 0 auto;
+    padding: 0 40px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: center;
+  }
+
+  .problem-quote {
+    font-family: 'Instrument Serif', serif;
+    font-size: clamp(28px, 3vw, 42px);
+    line-height: 1.3;
+    letter-spacing: -0.01em;
+    color: var(--paper);
+    position: relative;
+    z-index: 1;
+  }
+  .problem-quote em { font-style: italic; color: #e8845a; }
+
+  .problem-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .problem-item {
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+  }
+  .problem-icon {
+    width: 32px; height: 32px;
+    min-width: 32px;
+    border: 1px solid #333;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    margin-top: 2px;
+  }
+  .problem-text strong {
+    display: block;
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    color: var(--paper);
+    margin-bottom: 3px;
+  }
+  .problem-text span {
+    font-size: 13px;
+    color: #888;
+    line-height: 1.5;
+  }
+
+  /* ─── HOW IT WORKS ─── */
+  .how-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+    background: var(--rule);
+    border: 1px solid var(--rule);
+    margin-top: 64px;
+  }
+
+  .how-card {
+    background: var(--paper);
+    padding: 40px 36px;
+    position: relative;
+  }
+
+  .how-num {
+    font-family: 'Instrument Serif', serif;
+    font-size: 64px;
+    color: var(--accent-muted);
+    line-height: 1;
+    display: block;
+    margin-bottom: 20px;
+  }
+
+  .how-title {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--ink);
+    margin-bottom: 12px;
+    line-height: 1.3;
+  }
+
+  .how-body {
+    font-size: 14px;
+    line-height: 1.7;
+    color: var(--mid);
+  }
+
+  .how-tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    background: var(--ink);
+    color: var(--paper);
+    padding: 4px 10px;
+    display: inline-block;
+    margin-top: 20px;
+  }
+
+  /* ─── WHY NOW ─── */
+  .why-now {
+    background: #f0ebe0;
+    border-top: 3px solid var(--accent);
+  }
+
+  .now-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 64px;
+    margin-top: 56px;
+    align-items: start;
+  }
+
+  .now-column { display: flex; flex-direction: column; gap: 28px; }
+
+  .now-card {
+    border-left: 3px solid var(--rule);
+    padding: 0 0 0 24px;
+    transition: border-color 0.2s;
+  }
+  .now-card:hover { border-color: var(--accent); }
+
+  .now-card-title {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--ink);
+    margin-bottom: 6px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .now-card-tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    background: var(--accent);
+    color: white;
+    padding: 2px 7px;
+  }
+
+  .now-card-body {
+    font-size: 14px;
+    line-height: 1.65;
+    color: #666;
+  }
+
+  /* ─── WHO IS THIS FOR ─── */
+  .audience-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 28px;
+    margin-top: 56px;
+  }
+
+  .audience-card {
+    border: 1px solid var(--rule);
+    padding: 36px;
+    background: white;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .audience-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 32px rgba(0,0,0,0.08);
+  }
+  .audience-card::before {
+    content: attr(data-role);
+    font-family: 'Instrument Serif', serif;
+    font-size: 120px;
+    color: #f0ede6;
+    position: absolute;
+    top: -20px; right: -10px;
+    line-height: 1;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .audience-icon { font-size: 28px; margin-bottom: 16px; position: relative; z-index: 1; }
+  .audience-title {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--ink);
+    margin-bottom: 10px;
+    position: relative; z-index: 1;
+  }
+  .audience-body {
+    font-size: 14px;
+    line-height: 1.65;
+    color: #666;
+    position: relative; z-index: 1;
+  }
+
+  /* ─── OPEN SOURCE PLEDGE ─── */
+  .pledge {
+    background: var(--ink);
+    color: var(--paper);
+    padding: 100px 0;
+  }
+
+  .pledge-inner {
+    max-width: 1160px;
+    margin: 0 auto;
+    padding: 0 40px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 100px;
+    align-items: start;
+  }
+
+  .pledge-title {
+    font-family: 'Instrument Serif', serif;
+    font-size: clamp(40px, 4vw, 60px);
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    margin-bottom: 24px;
+  }
+  .pledge-title em { font-style: italic; color: #e8845a; }
+
+  .pledge-body {
+    font-size: 17px;
+    line-height: 1.75;
+    color: #9e9890;
+    max-width: 500px;
+  }
+
+  .pledge-items { display: flex; flex-direction: column; gap: 0; }
+
+  .pledge-item {
+    border-top: 1px solid #222;
+    padding: 24px 0;
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
+  }
+  .pledge-item:last-child { border-bottom: 1px solid #222; }
+
+  .pledge-check {
+    width: 24px; height: 24px;
+    min-width: 24px;
+    border: 1px solid var(--accent);
+    color: var(--accent);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    margin-top: 2px;
+  }
+
+  .pledge-item-title {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--paper);
+    margin-bottom: 4px;
+  }
+  .pledge-item-body {
+    font-size: 13px;
+    line-height: 1.6;
+    color: #777;
+  }
+
+  /* ─── STANDARDS STRIP ─── */
+  .standards-strip {
+    background: var(--cream);
+    border-top: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+    padding: 32px 0;
+    overflow: hidden;
+  }
+
+  .standards-inner {
+    max-width: 1160px;
+    margin: 0 auto;
+    padding: 0 40px;
+    display: flex;
+    gap: 48px;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+
+  .standards-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--mid);
+    white-space: nowrap;
+  }
+
+  .standard-pill {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.06em;
+    padding: 6px 14px;
+    border: 1px solid var(--rule);
+    color: var(--mid);
+    white-space: nowrap;
+    background: white;
+  }
+
+  /* ─── CTA FOOTER ─── */
+  .cta-footer {
+    background: var(--paper);
+    padding: 100px 40px;
+    text-align: center;
+    position: relative;
+  }
+
+  .cta-footer::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 50%; transform: translateX(-50%);
+    width: 1px;
+    height: 60px;
+    background: var(--rule);
+  }
+
+  .cta-title {
+    font-family: 'Instrument Serif', serif;
+    font-size: clamp(42px, 5vw, 68px);
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    max-width: 700px;
+    margin: 0 auto 16px;
+  }
+  .cta-title em { font-style: italic; color: var(--accent); }
+
+  .cta-body {
+    font-size: 16px;
+    color: var(--mid);
+    max-width: 480px;
+    margin: 0 auto 48px;
+    line-height: 1.7;
+  }
+
+  .cta-links {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-bottom: 56px;
+  }
+
+  .cta-btn-dark {
+    background: var(--ink);
+    color: var(--paper);
+    font-family: 'Syne', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 16px 36px;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: background 0.2s;
+  }
+  .cta-btn-dark:hover { background: #1f1f1f; }
+
+  .cta-btn-outline {
+    background: transparent;
+    color: var(--ink);
+    font-family: 'Syne', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 16px 36px;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    border: 1px solid var(--rule);
+    transition: border-color 0.2s;
+  }
+  .cta-btn-outline:hover { border-color: var(--ink); }
+
+  .cta-btn-red {
+    background: var(--accent);
+    color: white;
+    font-family: 'Syne', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 16px 36px;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: background 0.2s;
+  }
+  .cta-btn-red:hover { background: #a83416; }
+
+  .footer-meta {
+    border-top: 1px solid var(--rule);
+    padding-top: 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: gap;
+    gap: 16px;
+    max-width: 860px;
+    margin: 0 auto;
+  }
+  .footer-logo {
+    font-family: 'DM Mono', monospace;
+    font-size: 13px;
+    letter-spacing: 0.08em;
+    color: var(--ink);
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .footer-logo .ida-logo { color: var(--ink); height: 22px; width: auto; display: block; }
+  .footer-legal {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--mid);
+    letter-spacing: 0.05em;
+  }
+  .footer-links { display: flex; gap: 24px; }
+  .footer-links a {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--mid);
+    text-decoration: none;
+    letter-spacing: 0.05em;
+  }
+  .footer-links a:hover { color: var(--ink); }
+
+  /* ─── ANIMATIONS ─── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(28px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .animate { opacity: 0; }
+  .animated { animation: fadeUp 0.7s ease forwards; }
+
+  .delay-1 { animation-delay: 0.1s; }
+  .delay-2 { animation-delay: 0.2s; }
+  .delay-3 { animation-delay: 0.3s; }
+  .delay-4 { animation-delay: 0.4s; }
+  .delay-5 { animation-delay: 0.55s; }
+
+  /* ─── RESPONSIVE ─── */
+  @media (max-width: 900px) {
+    .hero { grid-template-columns: 1fr; min-height: auto; }
+    .hero-left { padding: 60px 36px; }
+    .hero-right { padding: 60px 36px; }
+    .hero-divider { display: none; }
+    .problem-inner { grid-template-columns: 1fr; gap: 48px; }
+    .how-grid { grid-template-columns: 1fr; }
+    .now-grid { grid-template-columns: 1fr; gap: 40px; }
+    .audience-grid { grid-template-columns: 1fr; }
+    .pledge-inner { grid-template-columns: 1fr; gap: 56px; }
+    .footer-meta { flex-direction: column; text-align: center; }
+    .section { padding: 72px 24px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ─── TOP BANNER ─── -->
+<div class="top-banner">
+  ★ IDA is now open source — Apache 2.0 &nbsp;·&nbsp; <a href="https://github.com/myida/ida">Star us on GitHub →</a>
+</div>
+
+<!-- ─── HERO ─── -->
+<section class="hero">
+  <div class="hero-left">
+    <div class="logo-mark">
+      <svg class="ida-logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 64" role="img" aria-label="IDA">
+        <text x="2" y="52" fill="currentColor"
+              style="font-family:'Space Grotesk',system-ui,sans-serif;font-weight:700;font-size:64px;letter-spacing:-0.01em;"
+              textLength="110" lengthAdjust="spacingAndGlyphs">IDA</text>
+        <circle cx="138" cy="44" r="9" fill="#c8401b"/>
+      </svg>
+      <span class="logo-tagline">· Identity for the AI Age</span>
+    </div>
+
+    <div>
+      <h1 class="hero-headline animate delay-1">
+        Who<br>speaks<br>for your<br><em>AI agent?</em>
+      </h1>
+      <p class="hero-sub animate delay-2">
+        IDA is an open source platform that gives people, organizations, and AI agents 
+        a verified, cryptographic identity they own — with no middlemen, no vendor lock-in, 
+        and full transparency.
+      </p>
+    </div>
+
+    <div class="hero-ctas animate delay-3">
+      <a class="btn-primary" href="https://github.com/myida/ida">
+        ⬡ View on GitHub
+      </a>
+      <a class="btn-secondary" href="https://docs.adid.dev/introduction/overview">
+        Read the Docs →
+      </a>
+    </div>
+  </div>
+
+  <div class="hero-right">
+    <span class="hero-right-label">The problem we're solving</span>
+
+    <blockquote class="hero-pull animate delay-2">
+      "AI is acting in the world on your behalf.<br>
+      Right now, <em>no one can prove it was authorized to.</em>"
+    </blockquote>
+
+    <div class="stat-row animate delay-3">
+      <div class="stat-cell">
+        <span class="stat-num">W3C</span>
+        <span class="stat-label">Standards compliant</span>
+      </div>
+      <div class="stat-cell">
+        <span class="stat-num">Apache 2</span>
+        <span class="stat-label">Open source license</span>
+      </div>
+      <div class="stat-cell">
+        <span class="stat-num">3-in-1</span>
+        <span class="stat-label">People · Orgs · AI agents</span>
+      </div>
+      <div class="stat-cell">
+        <span class="stat-num">ZK</span>
+        <span class="stat-label">Privacy-preserving proofs</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── STANDARDS STRIP ─── -->
+<div class="standards-strip">
+  <div class="standards-inner">
+    <span class="standards-label">Built on open standards</span>
+    <span class="standard-pill">W3C DID Core v1.0</span>
+    <span class="standard-pill">W3C Verifiable Credentials v2.0</span>
+    <span class="standard-pill">DIDComm v2</span>
+    <span class="standard-pill">EU AI Act 2024/1689</span>
+    <span class="standard-pill">MCP-I · A2A Protocol</span>
+    <span class="standard-pill">Zero-Knowledge Proofs</span>
+  </div>
+</div>
+
+<!-- ─── PROBLEM ─── -->
+<div class="problem-strip">
+  <div class="problem-inner">
+    <blockquote class="problem-quote">
+      The internet gave us the power to connect.<br>
+      It forgot to give us the power to <em>prove who we are</em> — or who's acting for us.
+    </blockquote>
+
+    <ul class="problem-list">
+      <li class="problem-item">
+        <div class="problem-icon">👤</div>
+        <div class="problem-text">
+          <strong>Your identity lives on someone else's server</strong>
+          <span>Log in with Google. Log in with Facebook. What happens when they shut down your account?</span>
+        </div>
+      </li>
+      <li class="problem-item">
+        <div class="problem-icon">🤖</div>
+        <div class="problem-text">
+          <strong>AI agents operate in the dark</strong>
+          <span>They borrow your credentials, act on your behalf, and leave no verifiable trail. Anyone could be responsible. No one is accountable.</span>
+        </div>
+      </li>
+      <li class="problem-item">
+        <div class="problem-icon">🏛️</div>
+        <div class="problem-text">
+          <strong>Governance has no identity layer</strong>
+          <span>Regulations are passing (EU AI Act, eIDAS 2.0) but infrastructure to enforce them barely exists.</span>
+        </div>
+      </li>
+      <li class="problem-item">
+        <div class="problem-icon">🔒</div>
+        <div class="problem-text">
+          <strong>Credentials aren't portable</strong>
+          <span>Your medical history, your qualifications, your work history — locked in siloed databases you don't control.</span>
+        </div>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<!-- ─── HOW IT WORKS ─── -->
+<div style="background: var(--paper);">
+  <div class="section">
+    <div class="section-label">How IDA works</div>
+    <h2 class="section-title">Identity that belongs to <em>you,</em> not to a platform</h2>
+    <p class="section-body">
+      IDA is built on W3C Decentralized Identifiers — a standard that lets anyone create a cryptographic identity anchored on a blockchain, with no company in the middle. Think of it as a passport that no government can revoke, no platform can delete, and no AI agent can forge.
+    </p>
+
+    <div class="how-grid">
+      <div class="how-card">
+        <span class="how-num">01</span>
+        <h3 class="how-title">You create a DID — your own cryptographic identity</h3>
+        <p class="how-body">
+          A Decentralized Identifier (DID) is a small string like <code style="font-family:'DM Mono',monospace;font-size:12px;background:#f0ede6;padding:2px 6px;">did:adi:0x…</code> that you own through a private key. No email address. No password reset email. Just math. Register once on the ADI blockchain; it's yours forever.
+        </p>
+        <span class="how-tag">Self-sovereign</span>
+      </div>
+
+      <div class="how-card">
+        <span class="how-num">02</span>
+        <h3 class="how-title">Institutions issue you Verifiable Credentials</h3>
+        <p class="how-body">
+          A university, employer, or government body issues a tamper-proof digital credential to your DID. You hold it in your wallet — like a physical card, but one that can be verified instantly anywhere in the world, without calling anyone.
+        </p>
+        <span class="how-tag">Verifiable Credentials</span>
+      </div>
+
+      <div class="how-card">
+        <span class="how-num">03</span>
+        <h3 class="how-title">You prove things without revealing everything</h3>
+        <p class="how-body">
+          Want to prove you're over 18 without showing your birthdate? Prove you're a licensed doctor without revealing your hospital? Zero-knowledge proofs let you share exactly what's needed — nothing more.
+        </p>
+        <span class="how-tag">Zero-knowledge proofs</span>
+      </div>
+
+      <div class="how-card">
+        <span class="how-num">04</span>
+        <h3 class="how-title">AI agents get their own verified identity</h3>
+        <p class="how-body">
+          Every AI agent deployed through IDA gets a <code style="font-family:'DM Mono',monospace;font-size:12px;background:#f0ede6;padding:2px 6px;">did:adi:agent:…</code> — its own cryptographic identity, linked back to the human or organization who authorized it, with a complete audit trail.
+        </p>
+        <span class="how-tag">Agent Identity</span>
+      </div>
+
+      <div class="how-card">
+        <span class="how-num">05</span>
+        <h3 class="how-title">Delegation is cryptographic, not a pinky promise</h3>
+        <p class="how-body">
+          When you authorize an AI agent to act for you, that authorization is a cryptographically signed token with exact scope — "buy groceries, max $200/week." The agent can't exceed that. And any service it talks to can verify the chain: you → delegation → agent.
+        </p>
+        <span class="how-tag">Capability tokens</span>
+      </div>
+
+      <div class="how-card">
+        <span class="how-num">06</span>
+        <h3 class="how-title">Trust is earned, on-chain, and auditable by anyone</h3>
+        <p class="how-body">
+          An Agent Trust Registry tracks every agent's history — verified actions, compliance attestations, autonomy level. This isn't a star rating you can game. It's a public, tamper-proof record. Rogue agents can be spotted. Well-behaved ones earn greater autonomy.
+        </p>
+        <span class="how-tag">Trust registry</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ─── WHY NOW ─── -->
+<div class="why-now">
+  <div class="section">
+    <div class="section-label">Why this matters right now</div>
+    <h2 class="section-title">The world is passing laws that need <em>infrastructure that doesn't exist yet.</em></h2>
+    <p class="section-body">
+      Three forces are converging in 2025–2026 that make verifiable identity not a nice-to-have, but an operational necessity for any serious AI deployment.
+    </p>
+
+    <div class="now-grid">
+      <div class="now-column">
+        <div class="now-card">
+          <div class="now-card-title">
+            The EU AI Act is now in force
+            <span class="now-card-tag">Regulatory</span>
+          </div>
+          <p class="now-card-body">
+            High-risk AI systems must maintain traceable, auditable identity logs. If your AI agent made a decision that affected someone's loan, healthcare, or employment — you need to prove it was authorized, what it was told to do, and who was responsible. IDA is the identity layer that makes this technically possible.
+          </p>
+        </div>
+
+        <div class="now-card">
+          <div class="now-card-title">
+            eIDAS 2.0 introduces the EU Digital Identity Wallet
+            <span class="now-card-tag">Policy</span>
+          </div>
+          <p class="now-card-body">
+            By 2026, every EU citizen will have access to a digital identity wallet. IDA's architecture is fully aligned with this model — and extends it to AI agents. Governments, banks, and healthcare providers need open infrastructure that speaks the same language.
+          </p>
+        </div>
+
+        <div class="now-card">
+          <div class="now-card-title">
+            MCP and A2A are becoming the internet's AI protocol layer
+            <span class="now-card-tag">Technical</span>
+          </div>
+          <p class="now-card-body">
+            Anthropic's Model Context Protocol (MCP) and Google's Agent-to-Agent (A2A) protocol are rapidly becoming how AI systems talk to each other. IDA integrates with both — adding verified identity to every agent-to-tool and agent-to-agent interaction.
+          </p>
+        </div>
+      </div>
+
+      <div class="now-column">
+        <div class="now-card">
+          <div class="now-card-title">
+            Agentic AI is moving from demos to production
+            <span class="now-card-tag">Industry</span>
+          </div>
+          <p class="now-card-body">
+            AI agents are being deployed to book travel, execute trades, manage files, and handle customer service — all without a human in the loop for each action. The identity and accountability gap is not theoretical. It's happening today, and the consequences of getting it wrong are real.
+          </p>
+        </div>
+
+        <div class="now-card">
+          <div class="now-card-title">
+            Digital credentials are replacing paper
+            <span class="now-card-tag">Society</span>
+          </div>
+          <p class="now-card-body">
+            Universities are issuing digital diplomas. Healthcare systems are exploring portable patient records. Professional bodies want machine-verifiable licenses. The missing piece is a universal, open standard for issuing and verifying these credentials — without locking into any single vendor.
+          </p>
+        </div>
+
+        <div class="now-card">
+          <div class="now-card-title">
+            Platform lock-in on identity is a governance crisis
+            <span class="now-card-tag">Governance</span>
+          </div>
+          <p class="now-card-body">
+            When identity is controlled by a handful of tech platforms, those platforms become chokepoints for speech, commerce, and civic participation. Open, decentralized identity infrastructure is a public good — like roads, not like toll booths.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ─── WHO IS THIS FOR ─── -->
+<div style="background: var(--paper);">
+  <div class="section">
+    <div class="section-label">Who is IDA for</div>
+    <h2 class="section-title">Four kinds of builders.<br><em>One shared foundation.</em></h2>
+
+    <div class="audience-grid">
+      <div class="audience-card" data-role="🛠">
+        <div class="audience-icon">🛠️</div>
+        <h3 class="audience-title">Developers building AI applications</h3>
+        <p class="audience-body">
+          If you're shipping agents that act on behalf of users — shopping, research, automation — you need a way to prove authorization without asking users to share API keys. IDA gives your agents a verified identity out of the box, with SDKs in TypeScript, REST APIs, and full Docker/K8s deployment guides.
+        </p>
+      </div>
+
+      <div class="audience-card" data-role="🏛">
+        <div class="audience-icon">🏛️</div>
+        <h3 class="audience-title">Enterprises and governments</h3>
+        <p class="audience-body">
+          Need EU AI Act compliance? Deploying a multi-agent workflow across departments? IDA's delegation chains and audit logs give your legal and compliance teams what they need: a cryptographic proof of authorization at every step, with no black boxes.
+        </p>
+      </div>
+
+      <div class="audience-card" data-role="🎓">
+        <div class="audience-icon">🎓</div>
+        <h3 class="audience-title">Credential issuers — universities, professional bodies, healthcare</h3>
+        <p class="audience-body">
+          Issue tamper-proof digital credentials that your recipients own forever, can share selectively, and can verify anywhere — without calling your office. IDA's issuer portal handles bulk issuance, revocation, and analytics on how credentials are being used.
+        </p>
+      </div>
+
+      <div class="audience-card" data-role="🔬">
+        <div class="audience-icon">🔬</div>
+        <h3 class="audience-title">Researchers and standards contributors</h3>
+        <p class="audience-body">
+          IDA implements DID Core, VC Data Model v2.0, DIDComm v2, and zero-knowledge proof circuits (Groth16, Semaphore). The codebase is fully open, the smart contracts are auditable, and we're actively looking for contributions to the did:adi method spec.
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ─── OPEN SOURCE PLEDGE ─── -->
+<div class="pledge">
+  <div class="pledge-inner">
+    <div>
+      <div class="section-label" style="color:#555;">Our commitment</div>
+      <h2 class="pledge-title">Open source means <em>no gatekeepers.</em> Ever.</h2>
+      <p class="pledge-body">
+        Identity infrastructure is too important to be owned by a single company. IDA is licensed under Apache 2.0. The smart contracts are public. The DID method spec is open for comment. We believe the world's identity layer should be a commons — built in the open, auditable by anyone, and improvable by everyone.
+      </p>
+    </div>
+
+    <div class="pledge-items">
+      <div class="pledge-item">
+        <div class="pledge-check">✓</div>
+        <div>
+          <div class="pledge-item-title">Apache 2.0 licensed, no enterprise upsell</div>
+          <div class="pledge-item-body">The full platform — API, smart contracts, portal, wallet, SDK — is Apache 2.0. Run it yourself. Fork it. Build on it. No feature paywalls.</div>
+        </div>
+      </div>
+      <div class="pledge-item">
+        <div class="pledge-check">✓</div>
+        <div>
+          <div class="pledge-item-title">Smart contracts are public and auditable</div>
+          <div class="pledge-item-body">DIDRegistry, SchemaRegistry, RevocationRegistry, AgentTrustRegistry, ZKProofVerifier — all deployed on-chain and readable by anyone.</div>
+        </div>
+      </div>
+      <div class="pledge-item">
+        <div class="pledge-check">✓</div>
+        <div>
+          <div class="pledge-item-title">W3C standards, no proprietary lock-in</div>
+          <div class="pledge-item-body">DIDs you create work with any W3C-compliant resolver. VCs you receive work in any compliant wallet. No ADI-only formats.</div>
+        </div>
+      </div>
+      <div class="pledge-item">
+        <div class="pledge-check">✓</div>
+        <div>
+          <div class="pledge-item-title">Governance is community-driven</div>
+          <div class="pledge-item-body">The did:adi method spec is open for comment and contribution. RFCs, change proposals, and security disclosures are handled publicly on GitHub.</div>
+        </div>
+      </div>
+      <div class="pledge-item">
+        <div class="pledge-check">✓</div>
+        <div>
+          <div class="pledge-item-title">Self-hostable from day one</div>
+          <div class="pledge-item-body">Full Docker Compose and Kubernetes Helm charts included. Deploy IDA entirely on your own infrastructure, with no dependency on our servers.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ─── CTA FOOTER ─── -->
+<div class="cta-footer">
+  <h2 class="cta-title">Start building<br>the <em>accountable</em> internet.</h2>
+  <p class="cta-body">
+    IDA is ready to deploy. The docs are live. The GitHub is open. 
+    Join the builders making AI governance real.
+  </p>
+
+  <div class="cta-links">
+    <a class="cta-btn-dark" href="https://github.com/myida/ida">
+      ⬡ GitHub — Star & Contribute
+    </a>
+    <a class="cta-btn-red" href="https://docs.adid.dev/getting-started/quickstart">
+      Quick Start Guide →
+    </a>
+    <a class="cta-btn-outline" href="https://adid.dev">
+      Open IDA Platform
+    </a>
+  </div>
+
+  <div class="footer-meta">
+    <span class="footer-logo">
+      <svg class="ida-logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 64" role="img" aria-label="IDA">
+        <text x="2" y="52" fill="currentColor"
+              style="font-family:'Space Grotesk',system-ui,sans-serif;font-weight:700;font-size:64px;letter-spacing:-0.01em;"
+              textLength="110" lengthAdjust="spacingAndGlyphs">IDA</text>
+        <circle cx="138" cy="44" r="9" fill="#c8401b"/>
+      </svg>
+      <span>· Identity for the AI Age</span>
+    </span>
+    <div class="footer-links">
+      <a href="https://docs.adid.dev">Docs</a>
+      <a href="https://github.com/myida/ida">GitHub</a>
+      <a href="https://adid.dev">Platform</a>
+    </div>
+    <span class="footer-legal">Apache 2.0 · Built by the Infinia Team · 2026</span>
+  </div>
+</div>
+
+<script>
+  // Intersection observer for fade-in animations
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('animated');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15 });
+
+  document.querySelectorAll('.animate').forEach(el => observer.observe(el));
+
+  // Also trigger hero elements on load
+  document.querySelectorAll('.hero .animate').forEach(el => {
+    setTimeout(() => el.classList.add('animated'), 100);
+  });
+</script>
+</body>
+</html>

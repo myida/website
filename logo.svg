@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 64" role="img" aria-label="IDA">
+  <title>IDA</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@700&amp;display=swap');
+    .ida-wordmark {
+      font-family: 'Space Grotesk', system-ui, -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
+      font-weight: 700;
+      font-size: 64px;
+      letter-spacing: -0.01em;
+    }
+  </style>
+  <text x="2" y="52" class="ida-wordmark" fill="currentColor"
+        textLength="110" lengthAdjust="spacingAndGlyphs">IDA</text>
+  <circle cx="138" cy="44" r="9" fill="#c8401b"/>
+</svg>
